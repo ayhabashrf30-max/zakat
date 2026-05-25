@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لجنة زكاة | الكوم الطويل</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     
     <style>
         :root {
@@ -60,7 +64,7 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 5px; }
 
-        /* شريط الإعلانات العاجلة المتحرك المطور */
+        /* شريط الإعلانات العاجلة المتحرك */
         .marquee-bar {
             background: var(--marquee-bg);
             color: var(--marquee-text);
@@ -171,14 +175,16 @@
         .section-header::after { content: '♦ ♦ ♦'; display: block; color: var(--secondary-color); font-size: 0.8rem; margin-top: 4px; }
 
         /* المشاريع */
-        .campaigns-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
+        .campaigns-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .campaign-card { background: var(--bg-card); border-radius: 16px; box-shadow: 0 6px 15px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; padding: 24px; transition: background-color 0.3s; }
         .campaign-icon-box { width: 50px; height: 50px; background: rgba(10, 92, 67, 0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: var(--primary-color); margin-bottom: 15px; }
-        .campaign-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
-        .campaign-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
+        .campaign-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 10px; color: var(--text-dark); }
+        .campaign-amount { display: inline-block; background: rgba(197, 155, 39, 0.12); color: var(--primary-dark); padding: 5px 12px; border-radius: 50px; font-size: 0.95rem; font-weight: 700; margin-bottom: 15px; border: 1px solid rgba(197, 155, 39, 0.2); width: fit-content; }
+        body.dark-theme .campaign-amount { color: var(--secondary-light); }
+        .campaign-amount strong { font-size: 1.15rem; font-weight: 900; color: var(--secondary-color); margin: 0 4px; }
+        .campaign-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 20px; }
         .progress-bar-bg { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin-top: auto; }
         .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--secondary-color), var(--primary-color)); }
-        .progress-info { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; }
 
         /* الشركاء والمؤسسات */
         .partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -221,7 +227,7 @@
         .blood-type { font-size: 1.5rem; font-weight: 900; color: #ef4444; }
         .blood-count { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
 
-        /* مؤشر قراءة القرآن والذكر التفاعلي الجديد */
+        /* مؤشر قراءة القرآن والذكر التفاعلي */
         .quran-widget-container {
             background: var(--bg-card); border-radius: 24px; padding: 30px 20px; margin: 40px auto 0; max-width: 850px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.02); border: 2px dashed rgba(10, 92, 67, 0.2); text-align: center; position: relative; transition: all 0.3s ease;
@@ -237,7 +243,7 @@
         .btn-play-audio { background: var(--secondary-color); color: var(--primary-dark); }
         .btn-play-audio:hover { background: var(--secondary-light); }
 
-        /* لوحة تعديل الإعلان السرية المودال */
+        /* لوحة التعديل المودال */
         .admin-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: 4000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 16px; }
         .admin-modal.active { opacity: 1; pointer-events: auto; }
         .admin-box { background: var(--bg-card); width: 100%; max-width: 460px; padding: 25px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); text-align: center; transform: scale(0.9); transition: transform 0.3s ease; }
@@ -249,7 +255,7 @@
         .admin-btn-save { background: #10b981; color: white; flex: 2; }
         .admin-btn-close { background: var(--text-muted); color: white; flex: 1; }
 
-        /* الأسئلة الشائعة (Accordion) */
+        /* الأسئلة الشائعة */
         .accordion-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
         .accordion-item { background: var(--bg-card); border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 4px 12px rgba(0,0,0,0.01); transition: background-color 0.3s; }
         .accordion-header { padding: 18px 20px; font-weight: 700; font-size: 1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
@@ -271,14 +277,16 @@
         .btn-call { color: var(--primary-color); background: var(--bg-card); }
         .btn-wa { color: #ffffff; background: #25d366; }
 
-        /* السلايدر والمعرض */
-        .slider-section { background: rgba(0,0,0,0.02); overflow: hidden; }
-        .slider-track { display: flex; gap: 15px; width: max-content; animation: scrollHorizontal 40s linear infinite; }
-        .slider-track:hover { animation-play-state: paused; }
-        @keyframes scrollHorizontal { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 7.5px)); } }
-        .slide-item { width: 240px; height: 170px; border-radius: 12px; overflow: hidden; cursor: pointer; position: relative; background: #ddd; border: 2px solid #ffffff; }
+        /* السلايدر والمعرض بتنسيق Swiper الجديد */
+        .slider-section { background: rgba(0,0,0,0.02); overflow: hidden; padding: 40px 0; }
+        .swiper { width: 100%; padding: 15px 0; }
+        /* الكود التالي مسؤول عن جعل الحركة مستمرة (Linear) بدون توقفات */
+        .swiper-wrapper { transition-timing-function: linear !important; }
+        .swiper-slide { width: max-content !important; }
+        
+        .slide-item { width: 280px; height: 190px; border-radius: 12px; overflow: hidden; cursor: pointer; position: relative; background: #ddd; border: 2px solid #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .slide-item img { width: 100%; height: 100%; object-fit: cover; }
-        .slide-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 92, 67, 0.4); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; opacity: 0; transition: opacity 0.2s; }
+        .slide-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 92, 67, 0.4); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.6rem; opacity: 0; transition: opacity 0.2s; }
         .slide-item:hover .slide-overlay { opacity: 1; }
 
         /* لايت بوكس وتوست */
@@ -328,7 +336,7 @@
             .stat-number { font-size: 1.15rem; }
             .stat-label { font-size: 0.72rem; }
             .section-header h2 { font-size: 1.45rem; }
-            .slide-item { width: 190px; height: 140px; }
+            .slide-item { width: 220px; height: 160px; }
         }
     </style>
 </head>
@@ -363,7 +371,7 @@
                 <ul id="navLinks">
                     <li><a href="#" class="nav-link">الرئيسية</a></li>
                     <li><a href="#about" class="nav-link">عن اللجنة</a></li>
-                    <li><a href="#campaigns" class="nav-link">مشاريعنا الخيرية</a></li>
+                    <li><a href="#campaigns" class="nav-link">مشاريع وحملات</a></li>
                     <li><a href="#partners" class="nav-link">شركاء الخير</a></li>
                     <li><a href="#donate" class="nav-link">تبرع الآن</a></li>
                     <li><a href="#faq" class="nav-link">الأسئلة الشائعة</a></li>
@@ -388,7 +396,7 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
-                <div class="stat-number"><span class="counter" data-target="15">0</span> سنة</div>
+                <div class="stat-number"><span class="counter" data-target="31">0</span> سنة</div>
                 <div class="stat-label">من الخبرة والعطاء المتواصل</div>
             </div>
             <div class="stat-card">
@@ -405,26 +413,47 @@
     </div>
 
     <section id="campaigns">
-        <div class="section-header"><h2>مشاريعنا وحملاتنا المستمرة</h2></div>
+        <div class="section-header"><h2>مشاريع وحملات</h2></div>
         <div class="campaigns-grid">
+            
             <div class="campaign-card">
                 <div class="campaign-icon-box"><i class="fa-solid fa-child-reaching"></i></div>
                 <h3>كفالة أيتام شهرياً</h3>
+                <div class="campaign-amount">تكلفة المشروع: <strong>8,000</strong> جنيه</div>
                 <p>تأمين النفقات المعيشية الأساسية للأطفال الأيتام داخل القرية لحمايتهم وضمان استقرارهم.</p>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 80%;"></div></div>
             </div>
+            
             <div class="campaign-card">
                 <div class="campaign-icon-box"><i class="fa-solid fa-kit-medical"></i></div>
                 <h3>علاج مرضى شهرياً</h3>
+                <div class="campaign-amount">تكلفة المشروع: <strong>20,000</strong> جنيه</div>
                 <p>توفير الأدوية الدورية للمصابين بالأمراض المزمنة والمساعدة في تكاليف العمليات الحرجة.</p>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 65%;"></div></div>
             </div>
+            
             <div class="campaign-card">
                 <div class="campaign-icon-box"><i class="fa-solid fa-basket-shopping"></i></div>
-                <h3>شنط بنك الطعام شهرياً</h3>
+                <h3>شنط بنك طعام شهرياً</h3>
+                <div class="campaign-amount">تكلفة المشروع: <strong>15,000</strong> جنيه</div>
                 <p>توفير السلال الغذائية المتكاملة شهرياً للأسر المستورة لضمان حياة كريمة.</p>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 75%;"></div></div>
             </div>
+
+            <div class="campaign-card">
+                <div class="campaign-icon-box"><i class="fa-solid fa-ring"></i></div>
+                <h3>مساعدة زواج الأيتام والفقراء</h3>
+                <p>المساهمة في تجهيز العرائس من الأيتام والأسر الأكثر احتياجاً لتأسيس حياة أسرية كريمة ومستقرة.</p>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 50%;"></div></div>
+            </div>
+
+            <div class="campaign-card">
+                <div class="campaign-icon-box"><i class="fa-solid fa-faucet-drip"></i></div>
+                <h3>توصيل وصلات مياه</h3>
+                <p>توصيل مياه الشرب النقية لمنازل الأسر المتعففة لضمان بيئة صحية وشريان حياة نظيف وآمن.</p>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 45%;"></div></div>
+            </div>
+
         </div>
     </section>
 
@@ -614,7 +643,11 @@
 
     <section id="gallery" class="slider-section">
         <div class="section-header"><h2>معرض الأثر وإنجازات اللجنة بالصور</h2></div>
-        <div class="slider-wrapper"><div class="slider-track" id="sliderTrack"></div></div>
+        
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper" id="sliderTrack">
+                </div>
+        </div>
     </section>
 
     <div class="admin-modal" id="adminModal">
@@ -652,14 +685,16 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
     <script>
-        // كود تشغيل الصوت التفاعلي الخفيف للأزرار للحركة الفخمة
+        // كود تشغيل الصوت
         function playAudioEffect() {
             const snd = document.getElementById('clickSound');
-            snd.volume = 0.3; snd.play().catch(e => console.log("الصوت ينتظر تفاعل المستخدم الأول"));
+            snd.volume = 0.3; snd.play().catch(e => console.log("الصوت ينتظر تفاعل المستخدم"));
         }
 
-        // قاعدة بيانات آيات وأذكار تفاعلية لويدجت القرآن
+        // قاعدة بيانات القرآن
         const quranDatabase = [
             { text: '"إِنَّ الْمُصَّدِّقِينَ وَالْمُصَّدِّقَاتِ وَأَقْرَضُوا اللَّهَ قَرْضًا حَسَنًا يُضَاعَفُ لَهُمْ وَلَهُمْ أَجْرٌ كَرِيمٌ"', source: "سورة الحديد - آية 18", audio: "https://server11.mp3quran.net/yasser/057.mp3" },
             { text: '"مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنبُلَةٍ مِّائَةُ حَبَّةٍ"', source: "سورة البقرة - آية 261", audio: "https://server11.mp3quran.net/yasser/002.mp3" },
@@ -681,7 +716,6 @@
                 source.innerText = quranDatabase[currentQuranIndex].source;
                 display.style.opacity = 1;
                 
-                // تحديث رابط الصوت وإيقاف القديم إذا كان يعمل
                 quranAudioPlayer.pause();
                 quranAudioPlayer.src = quranDatabase[currentQuranIndex].audio;
                 document.getElementById('audioBtn').innerHTML = '<i class="fa-solid fa-volume-high"></i> استماع للآية';
@@ -701,7 +735,7 @@
             }
         }
 
-        // لوحة التحكم السرية لتغيير الإعلان العاجل (3 ضغطات متتالية على اللوجو لفتح المودال)
+        // لوحة التحكم السرية
         let logoClickCount = 0;
         let logoClickTimer;
         const secretTrigger = document.getElementById('secretLogoTrigger');
@@ -709,7 +743,6 @@
         const customMarqueeInput = document.getElementById('customMarqueeInput');
         const marqueeText = document.getElementById('marqueeText');
 
-        // تحميل الإعلان المحفوظ من الذاكرة المحلية عند بدء التشغيل إن وجد
         if(localStorage.getItem('savedMarqueeText')) {
             marqueeText.innerText = localStorage.getItem('savedMarqueeText');
         }
@@ -717,13 +750,12 @@
         secretTrigger.addEventListener('click', () => {
             logoClickCount++;
             clearTimeout(logoClickTimer);
-            logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1000); // تصفير العد بعد ثانية
+            logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 1000); 
 
             if (logoClickCount === 3) {
                 logoClickCount = 0;
-                // طلب الرقم السري
                 const password = prompt("الرجاء إدخال الرقم السري للوحة الإدارة المباشرة:");
-                if (password === "1234") { // يمكنك تغيير الباسورد 1234 من هنا لأي رقم تريده
+                if (password === "1234") { 
                     customMarqueeInput.value = marqueeText.innerText;
                     adminModal.classList.add('active');
                 } else if(password !== null) {
@@ -737,7 +769,7 @@
             if(customMarqueeInput.value.trim() !== "") {
                 const newText = customMarqueeInput.value;
                 marqueeText.innerText = newText;
-                localStorage.setItem('savedMarqueeText', newText); // حفظ الإعلان في المتصفح بشكل دائم
+                localStorage.setItem('savedMarqueeText', newText); 
                 showToastNotification("تم تحديث وحفظ شريط الإعلان العاجل بنجاح!");
                 closeAdminModal();
             } else {
@@ -761,7 +793,6 @@
             else { header.classList.remove('scrolled'); }
         });
 
-        // منيو الموبايل الجانبي
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         mobileMenuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
@@ -769,7 +800,7 @@
             link.addEventListener('click', () => navLinks.classList.remove('active'));
         });
 
-        // التحكم وتفعيل الوضع المظلم (Dark Mode)
+        // الوضع المظلم
         const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
         themeToggleBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -782,7 +813,7 @@
             });
         });
 
-        // دالة نسخ الرقم مع التوست التلقائي
+        // نسخ الرقم
         function copyVodafoneNumber() {
             playAudioEffect();
             const numberText = document.getElementById('vfNumber').innerText;
@@ -794,7 +825,7 @@
             }).catch(err => console.error('خطأ في النسخ: ', err));
         }
 
-        // برمجة حاسبة الزكاة الذكية (2.5%)
+        // حاسبة الزكاة الذكية
         const zakatInput = document.getElementById('zakatInput');
         const zakatResult = document.getElementById('zakatResult');
         const zakatAmount = document.getElementById('zakatAmount');
@@ -807,7 +838,7 @@
             } else { zakatResult.style.display = 'none'; }
         });
 
-        // تأثير تحريك العدادات التفاعلي (Live Counter) عند التمرير
+        // تأثير العدادات
         const counters = document.querySelectorAll('.counter');
         const counterObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -830,7 +861,7 @@
         }, { threshold: 0.5 });
         counters.forEach(counter => counterObserver.observe(counter));
 
-        // نظام الأسئلة الشائعة (FAQ Accordion)
+        // الأسئلة الشائعة
         document.querySelectorAll('.accordion-header').forEach(header => {
             header.addEventListener('click', () => {
                 playAudioEffect();
@@ -848,15 +879,38 @@
             });
         });
 
-        // توليد صور السلايدر للمعرض تلقائياً
+        // ----------------------------------------------------
+        // الكود الجديد المسؤول عن توليد الـ 16 صورة وتشغيل السلايدر
+        // ----------------------------------------------------
         const sliderTrack = document.getElementById('sliderTrack');
-        const totalImages = 15; let trackHTML = '';
+        const totalImages = 16; 
+        let trackHTML = '';
+        
         for(let i = 1; i <= totalImages; i++) {
-            trackHTML += `<div class="slide-item" onclick="openLightbox('images/photo${i}.jpg')"><img src="images/photo${i}.jpg" alt="صورة ${i}" onerror="this.src='https://placehold.co/400x300/0a5c43/ffffff?text=%D8%B5%D9%84%D9%8A+%D8%B9%D9%84%D9%8A+%D8%A7%D9%84%D9%86%D8%A8%D9%8A'"><div class="slide-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div></div>`;
+            // لاحظ إضافة كلاس swiper-slide الضروري للمكتبة
+            trackHTML += `
+            <div class="swiper-slide slide-item" onclick="openLightbox('images/photo${i}.jpg')">
+                <img src="images/photo${i}.jpg" alt="صورة ${i}" onerror="this.src='https://placehold.co/400x300/0a5c43/ffffff?text=%D8%B5%D9%88%D8%B1%D8%A9+${i}'">
+                <div class="slide-overlay"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>`;
         }
-        sliderTrack.innerHTML = trackHTML + trackHTML;
+        sliderTrack.innerHTML = trackHTML;
 
-        // نافذة عرض الصور (Lightbox)
+        // تفعيل Swiper ليسمح بالسحب والحركة المستمرة الدائرية
+        const swiper = new Swiper('.mySwiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 15,
+            loop: true,               // هذه الخاصية تمنع الفراغ الأبيض وتعيد الصور من البداية
+            speed: 3500,              // سرعة التنقل
+            grabCursor: true,         // ظهور علامة اليد لتمكين السحب
+            autoplay: {
+                delay: 0,             // حركة مستمرة بدون توقف بين الصور
+                disableOnInteraction: false, // لا تتوقف الحركة عند سحب الصور باليد
+                pauseOnMouseEnter: true      // التوقف عند تمرير الماوس (اختياري)
+            },
+        });
+
+        // نافذة عرض الصور
         const lightboxModal = document.getElementById('lightboxModal');
         const lightboxImg = document.getElementById('lightboxImg');
         function openLightbox(src) { playAudioEffect(); lightboxImg.src = src; lightboxModal.classList.add('active'); }
