@@ -280,7 +280,6 @@
         /* السلايدر والمعرض بتنسيق Swiper الجديد */
         .slider-section { background: rgba(0,0,0,0.02); overflow: hidden; padding: 40px 0; }
         .swiper { width: 100%; padding: 15px 0; }
-        /* الكود التالي مسؤول عن جعل الحركة مستمرة (Linear) بدون توقفات */
         .swiper-wrapper { transition-timing-function: linear !important; }
         .swiper-slide { width: max-content !important; }
         
@@ -293,7 +292,6 @@
         .lightbox-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.96); z-index: 3000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 16px; }
         .lightbox-modal.active { opacity: 1; pointer-events: auto; }
         .lightbox-content { max-width: 100%; max-height: 80vh; border-radius: 8px; transform: scale(0.95); transition: transform 0.3s ease; }
-        .lightbox-modal.active .lightbox-content { transform: scale(1); }
         .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2rem; cursor: pointer; }
 
         .toast-notification { position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 600; font-size: 0.9rem; z-index: 2000; box-shadow: 0 8px 20px rgba(0,0,0,0.2); transition: bottom 0.3s ease; display: flex; align-items: center; gap: 8px; width: max-content; pointer-events: none; }
@@ -338,9 +336,45 @@
             .section-header h2 { font-size: 1.45rem; }
             .slide-item { width: 220px; height: 160px; }
         }
+
+        /* تنسيقات شاشة الترحيب (Splash Screen) */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+
+        .splash-logo {
+            width: 280px;
+            max-width: 80%;
+            animation: pulseLogo 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseLogo {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .fade-out {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
     </style>
 </head>
 <body>
+
+    <div id="splash-screen">
+        <img src="1.jpg" alt="شعار لجنة زكاة الكوم الطويل" class="splash-logo">
+    </div>
 
     <div class="marquee-bar">
         <div class="marquee-content" id="marqueeText">
@@ -645,8 +679,7 @@
         <div class="section-header"><h2>معرض الأثر وإنجازات اللجنة بالصور</h2></div>
         
         <div class="swiper mySwiper">
-            <div class="swiper-wrapper" id="sliderTrack">
-                </div>
+            <div class="swiper-wrapper" id="sliderTrack"></div>
         </div>
     </section>
 
@@ -668,7 +701,7 @@
     <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
     <audio id="quranAudioPlayer" src="https://server11.mp3quran.net/yasser/057.mp3" preload="auto"></audio>
 
-    <a href="https://api.whatsapp.com/send?text=%D8%A5%D9%84%D9%8A%D9%8A%D9%8%20%D8%A7%D9%84%D9%85%D9%84%D9%81%20%D8%A7%D9%84%D8%B1%D8%B3%D9%85%D9%8A%20%D9%84%D9%84%D8%AC%D9%8مي%D8%A9%20%D8%A7%D9%84%D8%AE%D9%8A%D8%B1%D9%8A%D8%A9%20-%20%D9%84%D8%AC%D9%86%D8%A9%20%D8%B2%D9%83%D8%A7%D8%A3%D8%A9%20%D8%A7%D9%84%D9%83%D9%88%D9%85%20%D8%A7%D9%84%D8%B7%D9%88%D9%8A%D9%84%20%D8%B4%D8%A7%D8%B1%D9%83%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AE%D9%8A%D8%B1" target="_blank" class="share-fab">
+    <a href="https://api.whatsapp.com/send?text=%D8%A5%D9%84%D9%8A%D9%8A%D9%8%20%D8%A7%D9%84%D9%8من%D9%81%20%D8%A7%D9%84%D8%B1%D8%B3%D9%85%D9%8A%20%D9%84%D9%84%D8%AC%D9%8مي%D8%A9%20%D8%A7%D9%84%D8%AE%D9%8A%D8%B1%D9%8A%D8%A9%20-%20%D9%84%D8%AC%D9%86%D8%A9%20%D8%B2%D9%83%D8%A7%D8%A3%D8%A9%20%D8%A7%D9%84%D9%83%D9%88%D9%85%20%D8%A7%D9%84%D8%B7%D9%88%D9%8A%D9%84%20%D8%B4%D8%A7%D8%B1%D9%83%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AE%D9%8A%D8%B1" target="_blank" class="share-fab">
         <i class="fa-brands fa-whatsapp"></i>
         <span class="share-tooltip">انشر تؤجر (واتساب)</span>
     </a>
@@ -698,7 +731,7 @@
         const quranDatabase = [
             { text: '"إِنَّ الْمُصَّدِّقِينَ وَالْمُصَّدِّقَاتِ وَأَقْرَضُوا اللَّهَ قَرْضًا حَسَنًا يُضَاعَفُ لَهُمْ وَلَهُمْ أَجْرٌ كَرِيمٌ"', source: "سورة الحديد - آية 18", audio: "https://server11.mp3quran.net/yasser/057.mp3" },
             { text: '"مَّثَلُ الَّذِينَ يُنفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنبُلَةٍ مِّائَةُ حَبَّةٍ"', source: "سورة البقرة - آية 261", audio: "https://server11.mp3quran.net/yasser/002.mp3" },
-            { text: '"وَمَا أَنفَقْتُم مِّن شَيْءٍ فَهُوَ يُخْلِفُهُ ۖ وَهُوَ خَيْرُ الرَّازِقِينَ"', source: "سورة سبأ - آية 39", audio: "https://server11.mp3quran.net/yasser/034.mp3" },
+            { text: '"وَمَا أَنفَقْتُم مِّن شَيْءٍ فَهوُ يُخْلِفُهُ ۖ وَهُوَ خَيْرُ الرَّازِقِينَ"', source: "سورة سبأ - آية 39", audio: "https://server11.mp3quran.net/yasser/034.mp3" },
             { text: '"الَّذِينَ يُنفِقُونَ أَمْوَالَهُم بِاللَّيْلِ وَالنَّهَارِ سِرًّا وَعَلَانِيَةً فَلَهُمْ أَجْرُهُمْ عِندَ رَبِّهِمْ"', source: "سورة البقرة - آية 274", audio: "https://server11.mp3quran.net/yasser/002.mp3" }
         ];
         let currentQuranIndex = 0;
@@ -879,15 +912,12 @@
             });
         });
 
-        // ----------------------------------------------------
-        // الكود الجديد المسؤول عن توليد الـ 16 صورة وتشغيل السلايدر
-        // ----------------------------------------------------
+        // توليد الـ 16 صورة وتشغيل السلايدر
         const sliderTrack = document.getElementById('sliderTrack');
         const totalImages = 16; 
         let trackHTML = '';
         
         for(let i = 1; i <= totalImages; i++) {
-            // لاحظ إضافة كلاس swiper-slide الضروري للمكتبة
             trackHTML += `
             <div class="swiper-slide slide-item" onclick="openLightbox('images/photo${i}.jpg')">
                 <img src="images/photo${i}.jpg" alt="صورة ${i}" onerror="this.src='https://placehold.co/400x300/0a5c43/ffffff?text=%D8%B5%D9%88%D8%B1%D8%A9+${i}'">
@@ -896,17 +926,17 @@
         }
         sliderTrack.innerHTML = trackHTML;
 
-        // تفعيل Swiper ليسمح بالسحب والحركة المستمرة الدائرية
+        // تفعيل Swiper
         const swiper = new Swiper('.mySwiper', {
             slidesPerView: 'auto',
             spaceBetween: 15,
-            loop: true,               // هذه الخاصية تمنع الفراغ الأبيض وتعيد الصور من البداية
-            speed: 3500,              // سرعة التنقل
-            grabCursor: true,         // ظهور علامة اليد لتمكين السحب
+            loop: true,
+            speed: 3500,
+            grabCursor: true,
             autoplay: {
-                delay: 0,             // حركة مستمرة بدون توقف بين الصور
-                disableOnInteraction: false, // لا تتوقف الحركة عند سحب الصور باليد
-                pauseOnMouseEnter: true      // التوقف عند تمرير الماوس (اختياري)
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
             },
         });
 
@@ -916,6 +946,15 @@
         function openLightbox(src) { playAudioEffect(); lightboxImg.src = src; lightboxModal.classList.add('active'); }
         function closeLightbox() { lightboxModal.classList.remove('active'); }
         lightboxModal.addEventListener('click', (e) => { if (e.target !== lightboxImg && e.target !== document.querySelector('.lightbox-close')) closeLightbox(); });
+
+        // إخفاء شاشة الترحيب (Splash Screen)
+        window.addEventListener('load', function() {
+            const splashScreen = document.getElementById('splash-screen');
+            setTimeout(function() {
+                splashScreen.classList.add('fade-out');
+            }, 1500); 
+        });
+
     </script>
 </body>
 </html>
